@@ -28,6 +28,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProvid
 builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("StripeSettings"));
 builder.Services.Configure<TwilioSetting>(builder.Configuration.GetSection("TwilioSettings"));
+builder.Services.AddHealthChecks();
 
 //register unitOfWork for our program 
 builder.Services.AddSingleton(payOS);
@@ -73,6 +74,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseHealthChecks("/health");
 
 
 app.UseDefaultFiles();
